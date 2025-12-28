@@ -740,6 +740,9 @@ async function cargarProductos() {
         if (p.is_favorited) userFavorites.add(p.id);
       });
 
+      // Exponer products como allProducts para cart.js
+      window.allProducts = products;
+
       // Cargar favoritos del usuario
       <?php if ($user_logged_in): ?>
       await cargarFavoritos();
@@ -758,10 +761,19 @@ async function cargarProductos() {
 <?php if ($user_logged_in): ?>
 async function cargarFavoritos() {
   try {
+    console.log('Cargando favoritos...');
     const res = await fetch('shop-products-api.php?action=get_favorites');
     const data = await res.json();
+    console.log('Respuesta favoritos:', data);
     if (data.success && data.products) {
-      data.products.forEach(p => userFavorites.add(parseInt(p.id)));
+      data.products.forEach(p => {
+        const id = parseInt(p.id);
+        userFavorites.add(id);
+        console.log('Favorito añadido:', id);
+      });
+      console.log('Total favoritos cargados:', userFavorites.size);
+    } else if (data.error) {
+      console.error('Error API favoritos:', data.error);
     }
   } catch (e) {
     console.error('Error cargando favoritos:', e);
@@ -1072,6 +1084,5 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-<script src="cart.js"></script>
 </body>
 </html>
