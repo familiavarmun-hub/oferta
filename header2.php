@@ -413,6 +413,9 @@ if ($usuario_actual_id > 0) {
             <a href="shop-my-offers.php"><i class="fas fa-store"></i> Mis Ofertas</a>
           </li>
           <li class="nav-item desktop-only">
+            <a href="shop-my-sales.php"><i class="fas fa-cash-register"></i> Mis Ventas</a>
+          </li>
+          <li class="nav-item desktop-only">
             <a href="shop-my-purchases.php"><i class="fas fa-shopping-bag"></i> Mis Compras</a>
           </li>
           <li class="nav-item desktop-only">
@@ -475,6 +478,7 @@ if ($usuario_actual_id > 0) {
           <!-- ===== SOLO MÓVIL (menú desplegable) ===== -->
           <li class="nav-item mobile-only"><a href="perfil_shop.php"><i class="fas fa-user-circle"></i> Perfil</a></li>
           <li class="nav-item mobile-only"><a href="shop-my-offers.php"><i class="fas fa-store"></i> Mis Ofertas</a></li>
+          <li class="nav-item mobile-only"><a href="shop-my-sales.php"><i class="fas fa-cash-register"></i> Mis Ventas</a></li>
           <li class="nav-item mobile-only"><a href="shop-my-purchases.php"><i class="fas fa-shopping-bag"></i> Mis Compras</a></li>
 
           <li class="nav-item mobile-only">

@@ -47,7 +47,7 @@ if (empty($action)) {
 }
 
 // Verificar autenticación para acciones que la requieren
-$protected_actions = ['add_product', 'get_user_products', 'get_seller_stats', 'update_product', 'delete_product', 'create_order', 'get_user_orders', 'submit_product_proposal', 'submit_product_counteroffer', 'accept_product_proposal', 'reject_product_proposal'];
+$protected_actions = ['add_product', 'get_user_products', 'get_seller_stats', 'update_product', 'delete_product', 'create_order', 'get_user_orders', 'get_seller_orders', 'update_order_status', 'submit_product_proposal', 'submit_product_counteroffer', 'accept_product_proposal', 'reject_product_proposal'];
 if (in_array($action, $protected_actions) && !isLoggedIn()) {
     sendResponse([
         'error' => 'Acceso denegado',
@@ -84,6 +84,12 @@ try {
             break;
         case 'get_user_orders':
             sendResponse(getUserOrders());
+            break;
+        case 'get_seller_orders':
+            sendResponse(getSellerOrders());
+            break;
+        case 'update_order_status':
+            sendResponse(updateOrderStatus());
             break;
         case 'submit_product_proposal':
             sendResponse(submitProductProposal());
@@ -1561,6 +1567,167 @@ function getUserOrders() {
     } catch (PDOException $e) {
         return [
             'error' => 'Error al obtener pedidos: ' . $e->getMessage()
+        ];
+    }
+}
+
+/**
+ * Obtener órdenes donde el usuario es el vendedor
+ * Para mostrar ventas de productos del viajero
+ */
+function getSellerOrders() {
+    global $conexion;
+
+    if (!isLoggedIn()) {
+        return [
+            'error' => 'Usuario no autenticado',
+            'redirect' => '../login.php'
+        ];
+    }
+
+    $user = getCurrentUser();
+    $seller_id = $user['id'];
+
+    try {
+        // Obtener órdenes donde el usuario es vendedor de algún item
+        $stmt = $conexion->prepare("
+            SELECT DISTINCT
+                o.id,
+                o.order_number,
+                o.buyer_id,
+                o.status,
+                o.total_amount,
+                o.currency,
+                o.shipping_address,
+                o.notes,
+                o.qr_code,
+                o.created_at,
+                o.updated_at,
+                o.delivered_at,
+                b.full_name as buyer_name,
+                b.username as buyer_username,
+                b.id as buyer_avatar_id
+            FROM shop_orders o
+            INNER JOIN shop_order_items oi ON o.id = oi.order_id
+            LEFT JOIN accounts b ON o.buyer_id = b.id
+            WHERE oi.seller_id = ?
+            ORDER BY o.created_at DESC
+        ");
+        $stmt->execute([$seller_id]);
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Para cada orden, obtener los items del vendedor
+        foreach ($orders as &$order) {
+            $items_stmt = $conexion->prepare("
+                SELECT
+                    oi.id,
+                    oi.product_id,
+                    oi.quantity,
+                    oi.unit_price,
+                    oi.subtotal,
+                    oi.currency,
+                    oi.status as item_status,
+                    p.name as product_name,
+                    p.description as product_description,
+                    (SELECT file_path FROM shop_product_images WHERE product_id = p.id ORDER BY display_order ASC LIMIT 1) as image
+                FROM shop_order_items oi
+                LEFT JOIN shop_products p ON oi.product_id = p.id
+                WHERE oi.order_id = ? AND oi.seller_id = ?
+            ");
+            $items_stmt->execute([$order['id'], $seller_id]);
+            $order['items'] = $items_stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Calcular subtotal del vendedor en esta orden
+            $seller_subtotal = 0;
+            foreach ($order['items'] as $item) {
+                $seller_subtotal += (float)$item['subtotal'];
+            }
+            $order['seller_subtotal'] = $seller_subtotal;
+        }
+
+        return [
+            'success' => true,
+            'orders' => $orders,
+            'count' => count($orders)
+        ];
+
+    } catch (PDOException $e) {
+        return [
+            'error' => 'Error al obtener ventas: ' . $e->getMessage()
+        ];
+    }
+}
+
+/**
+ * Actualizar estado de una orden (para vendedores)
+ */
+function updateOrderStatus() {
+    global $conexion;
+
+    if (!isLoggedIn()) {
+        return [
+            'error' => 'Usuario no autenticado',
+            'redirect' => '../login.php'
+        ];
+    }
+
+    $user = getCurrentUser();
+    $seller_id = $user['id'];
+
+    $order_id = (int)($_POST['order_id'] ?? 0);
+    $new_status = $_POST['status'] ?? '';
+
+    if ($order_id <= 0) {
+        return ['error' => 'ID de orden inválido'];
+    }
+
+    $valid_statuses = ['confirmed', 'paid', 'shipped', 'delivered', 'cancelled'];
+    if (!in_array($new_status, $valid_statuses)) {
+        return ['error' => 'Estado no válido'];
+    }
+
+    try {
+        // Verificar que el vendedor tiene items en esta orden
+        $check_stmt = $conexion->prepare("
+            SELECT COUNT(*) as count
+            FROM shop_order_items
+            WHERE order_id = ? AND seller_id = ?
+        ");
+        $check_stmt->execute([$order_id, $seller_id]);
+        $check = $check_stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($check['count'] == 0) {
+            return ['error' => 'No tienes permisos para modificar esta orden'];
+        }
+
+        // Actualizar estado de la orden
+        $update_stmt = $conexion->prepare("
+            UPDATE shop_orders
+            SET status = ?, updated_at = NOW()
+            WHERE id = ?
+        ");
+        $update_stmt->execute([$new_status, $order_id]);
+
+        // Si se marca como enviado, generar código QR si no existe
+        if ($new_status === 'shipped') {
+            $qr_stmt = $conexion->prepare("SELECT qr_code FROM shop_orders WHERE id = ?");
+            $qr_stmt->execute([$order_id]);
+            $order = $qr_stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (empty($order['qr_code'])) {
+                $qr_code = 'QR-' . strtoupper(bin2hex(random_bytes(8)));
+                $conexion->prepare("UPDATE shop_orders SET qr_code = ? WHERE id = ?")->execute([$qr_code, $order_id]);
+            }
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Estado actualizado correctamente'
+        ];
+
+    } catch (PDOException $e) {
+        return [
+            'error' => 'Error al actualizar estado: ' . $e->getMessage()
         ];
     }
 }

@@ -1667,19 +1667,23 @@ function proceedToCheckout() {
     showCancelButton: true,
     confirmButtonColor: '#41ba0d',
     cancelButtonColor: '#6b7280',
-    confirmButtonText: '<i class="fas fa-check"></i> Confirmar compra',
+    confirmButtonText: '<i class="fas fa-check"></i> Continuar al pago',
     cancelButtonText: '<i class="fas fa-arrow-left"></i> Volver'
   }).then((result) => {
     if (result.isConfirmed) {
-      processOrder();
+      submitToCheckout();
     }
   });
 }
 
-async function processOrder() {
+function submitToCheckout() {
+  const cart = getCart();
+  if (cart.length === 0) return;
+
+  // Mostrar loading
   Swal.fire({
-    title: 'Procesando compra...',
-    html: 'Por favor espera',
+    title: 'Procesando...',
+    html: 'Preparando tu pedido',
     allowOutsideClick: false,
     allowEscapeKey: false,
     didOpen: () => {
@@ -1687,31 +1691,20 @@ async function processOrder() {
     }
   });
 
-  // Simulate processing (replace with actual API call)
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  // Crear formulario oculto para enviar a shop-checkout.php
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = 'shop-checkout.php';
+  form.style.display = 'none';
 
-  const orderNumber = 'ORD-' + Date.now();
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.name = 'cart';
+  input.value = JSON.stringify(cart);
+  form.appendChild(input);
 
-  Swal.fire({
-    icon: 'success',
-    title: '¡Compra exitosa!',
-    html: `
-      <div style="text-align: center; padding: 1rem;">
-        <p style="font-size: 1.1rem; margin-bottom: 1rem;">Tu pedido ha sido procesado correctamente</p>
-        <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-          <p style="margin: 0; color: #6b7280;">Número de orden:</p>
-          <strong style="font-size: 1.2rem; color: #41ba0d;">${orderNumber}</strong>
-        </div>
-        <p style="color: #6b7280; font-size: 0.9rem;">Recibirás un email con los detalles de tu compra</p>
-      </div>
-    `,
-    confirmButtonColor: '#41ba0d',
-    confirmButtonText: 'Entendido'
-  }).then(() => {
-    localStorage.removeItem('sendvialo_cart');
-    updateCartBadge();
-    closeCart();
-  });
+  document.body.appendChild(form);
+  form.submit();
 }
 </script>
 
