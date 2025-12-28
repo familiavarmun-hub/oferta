@@ -111,7 +111,7 @@ if ($usuario_actual_id > 0) {
 <style>
 /* ==========================================
    ESTILOS BASE DEL HEADER - OFERTA
-   Color principal: #42ba25 (verde oferta)
+   Color principal: #41ba0d (verde oferta)
    ========================================== */
 .profile-img {
   width: 50px; height: 50px; border-radius: 50%;
@@ -134,7 +134,7 @@ if ($usuario_actual_id > 0) {
    ========================================== */
 .mobile-publish-btn{
   display:none;
-  background: linear-gradient(135deg,#42ba25,#5dcb2a);
+  background: linear-gradient(135deg,#41ba0d,#5dcb2a);
   color:#fff; border:none;
   padding:10px 20px;
   border-radius:25px;
@@ -142,7 +142,7 @@ if ($usuario_actual_id > 0) {
   cursor:pointer; align-items:center; gap:8px;
   transition: all .3s;
   text-decoration:none;
-  box-shadow: 0 4px 16px rgba(66,186,37,.4);
+  box-shadow: 0 4px 16px rgba(65,186,13,.4);
   position:relative; overflow:hidden;
 }
 .mobile-publish-btn::before{
@@ -154,9 +154,9 @@ if ($usuario_actual_id > 0) {
 }
 .mobile-publish-btn:hover::before{ left:100%; }
 .mobile-publish-btn:hover{
-  background: linear-gradient(135deg,#37a01f,#4fb822);
+  background: linear-gradient(135deg,#2d8518,#4fb822);
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 20px rgba(66,186,37,.5);
+  box-shadow: 0 6px 20px rgba(65,186,13,.5);
   color:#fff;
 }
 .mobile-publish-btn:active{ transform: translateY(0) scale(.98); }
@@ -179,8 +179,8 @@ if ($usuario_actual_id > 0) {
   color: #333;
 }
 .header-cart-btn:hover {
-  background: rgba(66,186,37,.1);
-  color: #42ba25;
+  background: rgba(65,186,13,.1);
+  color: #41ba0d;
 }
 .header-cart-btn i {
   font-size: 20px;
@@ -188,7 +188,7 @@ if ($usuario_actual_id > 0) {
 .header-cart-badge {
   position: absolute;
   top: 0; right: 0;
-  background: #42ba25;
+  background: #41ba0d;
   color: #fff;
   border-radius: 10px;
   padding: 2px 6px;
@@ -200,7 +200,7 @@ if ($usuario_actual_id > 0) {
   align-items: center;
   justify-content: center;
   animation: cartPulse 2s infinite;
-  box-shadow: 0 2px 5px rgba(66,186,37,.4);
+  box-shadow: 0 2px 5px rgba(65,186,13,.4);
 }
 @keyframes cartPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
 
@@ -214,7 +214,7 @@ if ($usuario_actual_id > 0) {
   text-decoration:none; display:inline-flex;
   align-items:center; padding:8px 12px; border-radius:8px;
 }
-.notifications-icon:hover{ background: rgba(66,186,37,.1); color:#42ba25; }
+.notifications-icon:hover{ background: rgba(65,186,13,.1); color:#41ba0d; }
 .notifications-badge{
   position:absolute; top:2px; right:2px;
   background:#f44336; color:#fff; border-radius:10px;
@@ -233,7 +233,7 @@ if ($usuario_actual_id > 0) {
   min-width:18px; text-align:center;
 }
 .badge-green {
-  background:#42ba25;
+  background:#41ba0d;
 }
 .mobile-badge{
   position:absolute; top:-5px; right:-5px;
@@ -242,7 +242,7 @@ if ($usuario_actual_id > 0) {
   min-width:16px; text-align:center;
 }
 .mobile-badge-green {
-  background:#42ba25;
+  background:#41ba0d;
 }
 .chat-link{ position:relative; }
 .chat-link .badge{ animation:pulse 2s infinite; }
@@ -277,7 +277,7 @@ if ($usuario_actual_id > 0) {
     transition: background .2s !important; white-space:nowrap !important;
     text-decoration:none !important;
   }
-  .sv-profile-menu .sub-menus li a:hover{ background: rgba(66,186,37,.1) !important; }
+  .sv-profile-menu .sub-menus li a:hover{ background: rgba(65,186,13,.1) !important; }
 }
 
 /* ==========================================
@@ -304,7 +304,7 @@ if ($usuario_actual_id > 0) {
     display:none !important;
     position:fixed !important;
     top:60px !important; left:0 !important; right:0 !important;
-    background:#42ba25 !important;
+    background:#41ba0d !important;
     padding:15px !important;
     max-height: calc(100vh - 60px - 80px) !important;
     overflow-y:auto !important;
@@ -357,7 +357,7 @@ if ($usuario_actual_id > 0) {
     color:#666 !important; font-size:11px !important;
     text-decoration:none !important; padding:5px !important;
   }
-  .mobile-bottom-nav a.active{ color:#42ba25 !important; }
+  .mobile-bottom-nav a.active{ color:#41ba0d !important; }
   .mobile-bottom-nav i{ font-size:20px !important; }
   .mobile-nav-label{ font-size:10px !important; }
 

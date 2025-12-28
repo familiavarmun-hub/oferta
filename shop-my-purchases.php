@@ -27,9 +27,9 @@ $user_id = $_SESSION['usuario_id'];
 
   <style>
     :root {
-      --primary: #42ba25;
-      --primary-dark: #37a01f;
-      --primary-soft: #eef9e7;
+      --primary: #41ba0d;
+      --primary-dark: #2d8518;
+      --primary-soft: #f1fcf0;
       --danger: #ef4444;
       --warning: #f59e0b;
       --info: #3b82f6;
