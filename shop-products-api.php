@@ -384,6 +384,17 @@ function getFavorites($conexion) {
     }
 
     try {
+        // Crear tabla si no existe
+        $conexion->exec("CREATE TABLE IF NOT EXISTS product_favorites (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            product_id INT NOT NULL,
+            user_id INT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE KEY unique_favorite (product_id, user_id),
+            INDEX idx_user (user_id),
+            INDEX idx_product (product_id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
         $query = "SELECT p.*,
           COALESCE(u.full_name, u.username) as seller_name,
           u.username as seller_username,

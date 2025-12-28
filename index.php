@@ -544,6 +544,312 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color
   .price-amt { font-size: 28px; }
   .quantity-badge { font-size: 11px; padding: 5px 12px; }
 }
+
+/* ========== CART MODAL ========== */
+.cart-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 3000;
+  display: none;
+  backdrop-filter: blur(8px);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.cart-modal-overlay.active {
+  display: flex;
+}
+
+.cart-modal {
+  background: white;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cart-modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+}
+.cart-modal-header h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--slate-900);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cart-modal-header h2 i {
+  color: var(--primary);
+}
+.cart-count-badge {
+  background: var(--primary);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.modal-close-btn {
+  background: var(--zinc-100);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--slate-600);
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close-btn:hover {
+  background: #e2e8f0;
+}
+
+.cart-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+}
+
+.cart-empty {
+  text-align: center;
+  padding: 40px 20px;
+}
+.cart-empty i {
+  font-size: 60px;
+  color: #ddd;
+  margin-bottom: 20px;
+}
+.cart-empty h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 10px;
+}
+.cart-empty p {
+  color: var(--slate-600);
+  margin-bottom: 20px;
+}
+.btn-continue-shopping {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cart-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 16px;
+  align-items: center;
+}
+.cart-item-image {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cart-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cart-item-details {
+  flex: 1;
+  min-width: 0;
+}
+.cart-item-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cart-item-seller {
+  font-size: 12px;
+  color: var(--slate-600);
+  margin-bottom: 4px;
+}
+.cart-item-price {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.cart-item-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border-radius: 10px;
+  padding: 4px;
+  border: 1px solid #e2e8f0;
+}
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--slate-600);
+  transition: 0.2s;
+}
+.qty-btn:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+.qty-input {
+  width: 40px;
+  text-align: center;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  background: transparent;
+}
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btn-remove-item {
+  background: transparent;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+.btn-remove-item:hover {
+  background: #fef2f2;
+}
+
+.cart-modal-footer {
+  padding: 20px 24px;
+  border-top: 1px solid #eee;
+  background: white;
+}
+.cart-summary {
+  margin-bottom: 16px;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--slate-600);
+}
+.summary-row.total {
+  border-top: 2px solid var(--primary);
+  padding-top: 12px;
+  margin-top: 8px;
+}
+.total-amount {
+  font-size: 20px;
+  color: var(--primary);
+}
+
+.cart-actions {
+  display: flex;
+  gap: 12px;
+}
+.btn-clear-cart {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--slate-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.2s;
+}
+.btn-clear-cart:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+.btn-checkout {
+  flex: 2;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: var(--slate-900);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.3s;
+}
+.btn-checkout:hover {
+  background: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .cart-modal {
+    max-width: 100%;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
+  }
+  .cart-item {
+    flex-wrap: wrap;
+  }
+  .cart-item-actions {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+}
 </style>
 </head>
 <body>
@@ -720,6 +1026,9 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color
   </div>
 </div>
 
+<!-- MODAL DEL CARRITO -->
+<div class="cart-modal-overlay" id="cart-modal-overlay" onclick="if(event.target === this) closeCart()"></div>
+
 <script>
 let products = [];
 let currentFilter = 'recent';
@@ -734,9 +1043,20 @@ async function cargarProductos() {
     const data = await res.json();
     if (data.success) {
       products = data.products || [];
+      // Convertir IDs a números
       products.forEach(p => {
+        p.id = parseInt(p.id);
         if (p.is_favorited) userFavorites.add(p.id);
       });
+
+      // Exponer products como allProducts para cart.js
+      window.allProducts = products;
+
+      // Cargar favoritos del usuario
+      <?php if ($user_logged_in): ?>
+      await cargarFavoritos();
+      <?php endif; ?>
+
       aplicarFiltros();
     } else {
       console.error('Error:', data.error);
@@ -746,6 +1066,29 @@ async function cargarProductos() {
   }
   document.getElementById('loading').style.display = 'none';
 }
+
+<?php if ($user_logged_in): ?>
+async function cargarFavoritos() {
+  try {
+    console.log('Cargando favoritos...');
+    const res = await fetch('shop-products-api.php?action=get_favorites');
+    const data = await res.json();
+    console.log('Respuesta favoritos:', data);
+    if (data.success && data.products) {
+      data.products.forEach(p => {
+        const id = parseInt(p.id);
+        userFavorites.add(id);
+        console.log('Favorito añadido:', id);
+      });
+      console.log('Total favoritos cargados:', userFavorites.size);
+    } else if (data.error) {
+      console.error('Error API favoritos:', data.error);
+    }
+  } catch (e) {
+    console.error('Error cargando favoritos:', e);
+  }
+}
+<?php endif; ?>
 
 // Modal de búsqueda
 function openSearchModal() {
@@ -936,6 +1279,7 @@ async function toggleFav(btn, id) {
   return;
   <?php endif; ?>
 
+  id = parseInt(id);
   const icon = btn.querySelector('i');
   const wasActive = btn.classList.contains('active');
 
@@ -947,6 +1291,8 @@ async function toggleFav(btn, id) {
     });
     const data = await res.json();
 
+    console.log('Favorito response:', data);
+
     if (data.success) {
       if (wasActive) {
         btn.classList.remove('active');
@@ -957,6 +1303,8 @@ async function toggleFav(btn, id) {
         icon.classList.replace('far', 'fas');
         userFavorites.add(id);
       }
+    } else {
+      console.error('Error favorito:', data.error);
     }
   } catch (e) {
     console.error('Error al guardar favorito:', e);
@@ -969,11 +1317,15 @@ function addToCart(id) {
   return;
   <?php endif; ?>
 
-  const product = products.find(p => p.id === id);
-  if (!product) return;
+  id = parseInt(id);
+  const product = products.find(p => parseInt(p.id) === id);
+  if (!product) {
+    console.error('Producto no encontrado:', id);
+    return;
+  }
 
   let cart = JSON.parse(localStorage.getItem('sendvialo_cart') || '[]');
-  const existingIndex = cart.findIndex(item => item.product_id === id);
+  const existingIndex = cart.findIndex(item => parseInt(item.product_id) === id);
 
   if (existingIndex >= 0) {
     if (cart[existingIndex].quantity < product.stock) {
@@ -1032,15 +1384,336 @@ function updateCartBadge() {
 
 // Cerrar modal con ESC
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeSearchModal();
+  if (e.key === 'Escape') {
+    closeSearchModal();
+    closeCart();
+  }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
   cargarProductos();
   updateCartBadge();
 });
+
+// ========================================
+// FUNCIONES DEL CARRITO
+// ========================================
+
+function openCart() {
+  renderCartModal();
+  const overlay = document.getElementById('cart-modal-overlay');
+  if (overlay) {
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeCart() {
+  const overlay = document.getElementById('cart-modal-overlay');
+  if (overlay) {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+function getCart() {
+  return JSON.parse(localStorage.getItem('sendvialo_cart') || '[]');
+}
+
+function saveCartData(cart) {
+  localStorage.setItem('sendvialo_cart', JSON.stringify(cart));
+  updateCartBadge();
+}
+
+function formatCartPrice(amount, currency) {
+  const symbols = {
+    'EUR': '€', 'USD': '$', 'BOB': 'Bs.', 'BRL': 'R$',
+    'ARS': '$', 'VES': 'Bs.', 'COP': '$', 'MXN': '$',
+    'NIO': 'C$', 'CUP': '$MN', 'PEN': 'S/'
+  };
+  const symbol = symbols[currency] || currency;
+  return `${symbol}${parseFloat(amount).toFixed(2)}`;
+}
+
+function renderCartModal() {
+  const cart = getCart();
+  const overlay = document.getElementById('cart-modal-overlay');
+
+  if (cart.length === 0) {
+    overlay.innerHTML = `
+      <div class="cart-modal" onclick="event.stopPropagation()">
+        <div class="cart-modal-header">
+          <h2><i class="fas fa-shopping-cart"></i> Tu Carrito</h2>
+          <button class="modal-close-btn" onclick="closeCart()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="cart-modal-body">
+          <div class="cart-empty">
+            <i class="fas fa-shopping-cart"></i>
+            <h3>Tu carrito está vacío</h3>
+            <p>Añade productos para empezar a comprar</p>
+            <button class="btn-continue-shopping" onclick="closeCart()">
+              <i class="fas fa-arrow-left"></i> Seguir comprando
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const currency = cart[0]?.currency || 'EUR';
+
+  overlay.innerHTML = `
+    <div class="cart-modal" onclick="event.stopPropagation()">
+      <div class="cart-modal-header">
+        <h2>
+          <i class="fas fa-shopping-cart"></i> Tu Carrito
+          <span class="cart-count-badge">${totalItems}</span>
+        </h2>
+        <button class="modal-close-btn" onclick="closeCart()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="cart-modal-body">
+        <div class="cart-items-list">
+          ${cart.map((item, index) => `
+            <div class="cart-item">
+              <div class="cart-item-image">
+                <img src="${item.image || 'https://via.placeholder.com/100'}" alt="${item.name}">
+              </div>
+              <div class="cart-item-details">
+                <h4 class="cart-item-name">${item.name}</h4>
+                <p class="cart-item-seller"><i class="fas fa-user"></i> ${item.seller_name || 'Vendedor'}</p>
+                <p class="cart-item-price">${formatCartPrice(item.price * item.quantity, item.currency)}</p>
+              </div>
+              <div class="cart-item-actions">
+                <div class="quantity-controls">
+                  <button class="qty-btn" onclick="updateCartQuantity(${index}, ${item.quantity - 1})">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <input type="number" class="qty-input" value="${item.quantity}" min="1" max="${item.stock || 99}"
+                         onchange="updateCartQuantity(${index}, parseInt(this.value))">
+                  <button class="qty-btn" onclick="updateCartQuantity(${index}, ${item.quantity + 1})">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
+                <button class="btn-remove-item" onclick="removeFromCartByIndex(${index})">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="cart-modal-footer">
+        <div class="cart-summary">
+          <div class="summary-row">
+            <span>Subtotal (${totalItems} productos):</span>
+            <strong>${formatCartPrice(subtotal, currency)}</strong>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <strong class="total-amount">${formatCartPrice(subtotal, currency)}</strong>
+          </div>
+        </div>
+        <div class="cart-actions">
+          <button class="btn-clear-cart" onclick="clearEntireCart()">
+            <i class="fas fa-trash-alt"></i> Vaciar
+          </button>
+          <button class="btn-checkout" onclick="proceedToCheckout()">
+            <i class="fas fa-credit-card"></i> Proceder al pago
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function updateCartQuantity(index, newQuantity) {
+  const cart = getCart();
+  if (index < 0 || index >= cart.length) return;
+
+  if (newQuantity <= 0) {
+    removeFromCartByIndex(index);
+    return;
+  }
+
+  const maxStock = cart[index].stock || 99;
+  if (newQuantity > maxStock) {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'warning',
+      title: `Solo hay ${maxStock} unidades disponibles`,
+      timer: 2000,
+      showConfirmButton: false
+    });
+    return;
+  }
+
+  cart[index].quantity = newQuantity;
+  saveCartData(cart);
+  renderCartModal();
+}
+
+function removeFromCartByIndex(index) {
+  Swal.fire({
+    title: '¿Eliminar producto?',
+    text: "Se quitará del carrito",
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#41ba0d',
+    cancelButtonColor: '#ef4444',
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const cart = getCart();
+      cart.splice(index, 1);
+      saveCartData(cart);
+      renderCartModal();
+
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Producto eliminado',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
+  });
+}
+
+function clearEntireCart() {
+  const cart = getCart();
+  if (cart.length === 0) return;
+
+  Swal.fire({
+    title: '¿Vaciar carrito?',
+    text: "Se eliminarán todos los productos",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#ef4444',
+    cancelButtonColor: '#6b7280',
+    confirmButtonText: 'Sí, vaciar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.removeItem('sendvialo_cart');
+      updateCartBadge();
+      renderCartModal();
+
+      Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: 'Carrito vaciado',
+        timer: 1500,
+        showConfirmButton: false
+      });
+    }
+  });
+}
+
+function proceedToCheckout() {
+  const cart = getCart();
+  if (cart.length === 0) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Carrito vacío',
+      text: 'Añade productos antes de proceder al pago',
+      confirmButtonColor: '#41ba0d'
+    });
+    return;
+  }
+
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const currency = cart[0]?.currency || 'EUR';
+
+  Swal.fire({
+    title: '<i class="fas fa-receipt"></i> Resumen de compra',
+    html: `
+      <div style="text-align: left; padding: 1rem;">
+        <h4 style="margin-bottom: 1rem; color: #374151;">Productos (${totalItems}):</h4>
+        ${cart.map(item => `
+          <div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">
+            <span>${item.name} x${item.quantity}</span>
+            <strong>${formatCartPrice(item.price * item.quantity, item.currency)}</strong>
+          </div>
+        `).join('')}
+        <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 2px solid #41ba0d;">
+          <div style="display: flex; justify-content: space-between; font-size: 1.2rem;">
+            <strong>Total:</strong>
+            <strong style="color: #41ba0d;">${formatCartPrice(subtotal, currency)}</strong>
+          </div>
+        </div>
+        <div style="margin-top: 1.5rem; padding: 1rem; background: #f9fafb; border-radius: 8px;">
+          <p style="margin: 0; color: #6b7280; font-size: 0.9rem;">
+            <i class="fas fa-info-circle"></i>
+            El pago se procesará de forma segura
+          </p>
+        </div>
+      </div>
+    `,
+    width: '600px',
+    showCancelButton: true,
+    confirmButtonColor: '#41ba0d',
+    cancelButtonColor: '#6b7280',
+    confirmButtonText: '<i class="fas fa-check"></i> Confirmar compra',
+    cancelButtonText: '<i class="fas fa-arrow-left"></i> Volver'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      processOrder();
+    }
+  });
+}
+
+async function processOrder() {
+  Swal.fire({
+    title: 'Procesando compra...',
+    html: 'Por favor espera',
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  });
+
+  // Simulate processing (replace with actual API call)
+  await new Promise(resolve => setTimeout(resolve, 2000));
+
+  const orderNumber = 'ORD-' + Date.now();
+
+  Swal.fire({
+    icon: 'success',
+    title: '¡Compra exitosa!',
+    html: `
+      <div style="text-align: center; padding: 1rem;">
+        <p style="font-size: 1.1rem; margin-bottom: 1rem;">Tu pedido ha sido procesado correctamente</p>
+        <div style="background: #f9fafb; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+          <p style="margin: 0; color: #6b7280;">Número de orden:</p>
+          <strong style="font-size: 1.2rem; color: #41ba0d;">${orderNumber}</strong>
+        </div>
+        <p style="color: #6b7280; font-size: 0.9rem;">Recibirás un email con los detalles de tu compra</p>
+      </div>
+    `,
+    confirmButtonColor: '#41ba0d',
+    confirmButtonText: 'Entendido'
+  }).then(() => {
+    localStorage.removeItem('sendvialo_cart');
+    updateCartBadge();
+    closeCart();
+  });
+}
 </script>
 
-<script src="cart.js"></script>
 </body>
 </html>
