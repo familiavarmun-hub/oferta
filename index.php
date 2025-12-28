@@ -734,9 +734,17 @@ async function cargarProductos() {
     const data = await res.json();
     if (data.success) {
       products = data.products || [];
+      // Convertir IDs a números
       products.forEach(p => {
+        p.id = parseInt(p.id);
         if (p.is_favorited) userFavorites.add(p.id);
       });
+
+      // Cargar favoritos del usuario
+      <?php if ($user_logged_in): ?>
+      await cargarFavoritos();
+      <?php endif; ?>
+
       aplicarFiltros();
     } else {
       console.error('Error:', data.error);
@@ -746,6 +754,20 @@ async function cargarProductos() {
   }
   document.getElementById('loading').style.display = 'none';
 }
+
+<?php if ($user_logged_in): ?>
+async function cargarFavoritos() {
+  try {
+    const res = await fetch('shop-products-api.php?action=get_favorites');
+    const data = await res.json();
+    if (data.success && data.products) {
+      data.products.forEach(p => userFavorites.add(parseInt(p.id)));
+    }
+  } catch (e) {
+    console.error('Error cargando favoritos:', e);
+  }
+}
+<?php endif; ?>
 
 // Modal de búsqueda
 function openSearchModal() {
@@ -936,6 +958,7 @@ async function toggleFav(btn, id) {
   return;
   <?php endif; ?>
 
+  id = parseInt(id);
   const icon = btn.querySelector('i');
   const wasActive = btn.classList.contains('active');
 
@@ -947,6 +970,8 @@ async function toggleFav(btn, id) {
     });
     const data = await res.json();
 
+    console.log('Favorito response:', data);
+
     if (data.success) {
       if (wasActive) {
         btn.classList.remove('active');
@@ -957,6 +982,8 @@ async function toggleFav(btn, id) {
         icon.classList.replace('far', 'fas');
         userFavorites.add(id);
       }
+    } else {
+      console.error('Error favorito:', data.error);
     }
   } catch (e) {
     console.error('Error al guardar favorito:', e);
@@ -969,11 +996,15 @@ function addToCart(id) {
   return;
   <?php endif; ?>
 
-  const product = products.find(p => p.id === id);
-  if (!product) return;
+  id = parseInt(id);
+  const product = products.find(p => parseInt(p.id) === id);
+  if (!product) {
+    console.error('Producto no encontrado:', id);
+    return;
+  }
 
   let cart = JSON.parse(localStorage.getItem('sendvialo_cart') || '[]');
-  const existingIndex = cart.findIndex(item => item.product_id === id);
+  const existingIndex = cart.findIndex(item => parseInt(item.product_id) === id);
 
   if (existingIndex >= 0) {
     if (cart[existingIndex].quantity < product.stock) {
