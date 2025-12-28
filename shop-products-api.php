@@ -440,6 +440,17 @@ function addFavorite($conexion) {
     }
 
     try {
+        // Crear tabla si no existe
+        $conexion->exec("CREATE TABLE IF NOT EXISTS product_favorites (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            product_id INT NOT NULL,
+            user_id INT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE KEY unique_favorite (product_id, user_id),
+            INDEX idx_user (user_id),
+            INDEX idx_product (product_id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
         $stmt = $conexion->prepare("INSERT IGNORE INTO product_favorites (product_id, user_id, created_at) VALUES (:product_id, :user_id, NOW())");
         $stmt->execute([':product_id' => $productId, ':user_id' => $userId]);
 
@@ -447,7 +458,7 @@ function addFavorite($conexion) {
 
     } catch (PDOException $e) {
         error_log("Error en addFavorite: " . $e->getMessage());
-        echo json_encode(['success' => false, 'error' => 'Error al añadir favorito']);
+        echo json_encode(['success' => false, 'error' => 'Error al añadir favorito: ' . $e->getMessage()]);
     }
 }
 
