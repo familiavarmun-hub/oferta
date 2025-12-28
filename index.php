@@ -26,9 +26,9 @@ $user_name = $user_logged_in ? ($_SESSION['usuario_nombre'] ?? $_SESSION['full_n
 
 <style>
 :root {
-  --primary: #42ba25;
-  --primary-dark: #37a01f;
-  --primary-soft: #eef9e7;
+  --primary: #41ba0d;
+  --primary-dark: #2d8518;
+  --primary-soft: #f1fcf0;
   --slate-900: #0f172a;
   --slate-600: #475569;
   --slate-400: #94a3b8;
@@ -43,8 +43,8 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color
 
 /* ========== HERO & FULL-WIDTH SEARCH ========== */
 .hero-header {
-  background: linear-gradient(135deg, var(--primary-soft) 0%, #d4f1cd 100%);
-  padding: 85px 20px 30px;
+  background: white;
+  padding: 85px 20px 20px;
   border-bottom: 1px solid #eee;
 }
 .hero-header h1 {
@@ -71,7 +71,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color
   display: flex; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
   cursor: pointer; padding: 16px 40px; width: 100%; transition: 0.3s; max-width: 100%;
 }
-.search-pill:hover { border-color: var(--primary); box-shadow: 0 6px 20px rgba(66,186,37,0.15); }
+.search-pill:hover { border-color: var(--primary); box-shadow: 0 6px 20px rgba(65,186,13,0.15); }
 .search-pill i { color: var(--primary); margin-right: 15px; font-size: 18px; }
 .search-pill span { font-weight: 600; font-size: 15px; color: var(--slate-600); }
 
@@ -216,7 +216,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg-body); color
 .filter-bar .container { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; }
 .tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; width: 100%; }
 .tab { padding: 8px 18px; border-radius: 12px; border: none; background: transparent; font-weight: 700; font-size: 12px; color: var(--slate-600); cursor: pointer; transition: 0.3s; white-space: nowrap; }
-.tab.active { background: var(--primary); color: white; }
+.tab.active { background: var(--slate-900); color: white; }
 
 /* ========== GRID & CARDS ========== */
 .main-container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
@@ -730,7 +730,7 @@ const userFavorites = new Set();
 // Cargar productos desde la API
 async function cargarProductos() {
   try {
-    const res = await fetch('shop-products-api.php?action=get_products&status=active');
+    const res = await fetch('shop-actions.php?action=get_products');
     const data = await res.json();
     if (data.success) {
       products = data.products || [];
@@ -738,6 +738,8 @@ async function cargarProductos() {
         if (p.is_favorited) userFavorites.add(p.id);
       });
       aplicarFiltros();
+    } else {
+      console.error('Error:', data.error);
     }
   } catch (e) {
     console.error(e);
@@ -846,11 +848,12 @@ function aplicarFiltros() {
   grid.innerHTML = list.map(p => {
     const rating = parseFloat(p.seller_rating) || 0;
     const isFav = userFavorites.has(p.id);
-    const avatar = p.seller_avatar_id > 0
-      ? `../mostrar_imagen.php?id=${p.seller_avatar_id}`
-      : `https://ui-avatars.com/api/?name=${encodeURIComponent(p.seller_name)}&background=42ba25&color=fff`;
+    const avatar = p.seller_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(p.seller_name || 'Usuario')}&background=42ba25&color=fff`;
     const description = p.description || 'Producto exclusivo de viajero';
     const stock = parseInt(p.stock) || 0;
+    const origin = p.origin || p.origin_country || 'Internacional';
+    const destination = p.destination || p.destination_city || 'A coordinar';
+    const totalRatings = parseInt(p.total_ratings) || 0;
 
     let stockTag = '';
     if (stock === 0) {
@@ -879,23 +882,21 @@ function aplicarFiltros() {
           <div class="route-box">
             <div>
               <div class="route-label">Viene de</div>
-              <div class="route-val">${p.origin_country || 'Internacional'}</div>
+              <div class="route-val">${origin}</div>
             </div>
             <div style="border-left:1px solid #eee; padding-left:10px;">
               <div class="route-label">Entrega en</div>
-              <div class="route-val">${p.destination_city || 'A coordinar'}</div>
+              <div class="route-val">${destination}</div>
             </div>
           </div>
 
           <div class="user-info">
-            <img src="${avatar}" class="avatar-img" alt="${p.seller_name}">
+            <img src="${avatar}" class="avatar-img" alt="${p.seller_name || 'Vendedor'}">
             <div>
-              <div style="font-weight:600; font-size:13px;">@${p.seller_name}</div>
-              <div style="font-size:11px; color:#f59e0b;">★ ${rating.toFixed(1)}</div>
+              <div style="font-weight:600; font-size:13px;">@${p.seller_username || p.seller_name || 'vendedor'}</div>
+              <div style="font-size:11px; color:#f59e0b;">★ ${rating.toFixed(1)} ${totalRatings > 0 ? `(${totalRatings})` : ''}</div>
             </div>
-            <div class="sales-badge">
-              <i class="fas fa-shopping-bag"></i> ${p.sales_count || 0} ventas
-            </div>
+            ${p.seller_verified ? '<div class="verified-badge"><i class="fas fa-check-circle"></i></div>' : ''}
           </div>
 
           <div class="price-action">
@@ -982,7 +983,7 @@ function addToCart(id) {
         icon: 'warning',
         title: 'Stock limitado',
         text: `Solo hay ${product.stock} unidades disponibles`,
-        confirmButtonColor: '#42ba25'
+        confirmButtonColor: '#41ba0d'
       });
       return;
     }

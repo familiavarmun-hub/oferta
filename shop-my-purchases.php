@@ -27,9 +27,9 @@ $user_id = $_SESSION['usuario_id'];
 
   <style>
     :root {
-      --primary: #42ba25;
-      --primary-dark: #37a01f;
-      --primary-soft: #eef9e7;
+      --primary: #41ba0d;
+      --primary-dark: #2d8518;
+      --primary-soft: #f1fcf0;
       --danger: #ef4444;
       --warning: #f59e0b;
       --info: #3b82f6;
@@ -411,7 +411,7 @@ let currentFilter = 'all';
 
 async function cargarCompras() {
   try {
-    const res = await fetch('shop-orders-api.php?action=get_my_purchases&user_id=<?= $user_id ?>');
+    const res = await fetch('shop-actions.php?action=get_user_orders');
     const data = await res.json();
     if (data.success) {
       purchases = data.orders || [];

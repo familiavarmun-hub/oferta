@@ -27,9 +27,9 @@ $user_id = $_SESSION['usuario_id'];
 
   <style>
     :root {
-      --primary: #42ba25;
-      --primary-dark: #37a01f;
-      --primary-soft: #eef9e7;
+      --primary: #41ba0d;
+      --primary-dark: #2d8518;
+      --primary-soft: #f1fcf0;
       --danger: #ef4444;
       --warning: #f59e0b;
       --slate-900: #0f172a;
@@ -455,7 +455,7 @@ let currentFilter = 'all';
 
 async function cargarOfertas() {
   try {
-    const res = await fetch('shop-products-api.php?action=get_my_products&user_id=<?= $user_id ?>');
+    const res = await fetch('shop-actions.php?action=get_user_products');
     const data = await res.json();
     if (data.success) {
       offers = data.products || [];
