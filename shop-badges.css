@@ -1,0 +1,227 @@
+/* shop-badges.css - Sistema de insignias unificado para SendVialo Shop */
+
+/* Colores para las diferentes categorías de insignias */
+.diamond-text { color: #e1f5fe; text-shadow: 0 0 8px #81d4fa; }
+.gold-text { color: #ffd700; text-shadow: 0 0 6px #ffb300; }
+.silver-text { color: #c0c0c0; text-shadow: 0 0 4px #9e9e9e; }
+.bronze-text { color: #cd7f32; text-shadow: 0 0 4px #8d6e63; }
+.basic-text { color: #666; }
+
+/* Contenedor principal de la imagen con laurel */
+.profile-image-laurel {
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+/* Imagen de perfil */
+.profile-image-laurel img {
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    z-index: 2;
+}
+
+/* Laurel SVG - posicionamiento */
+.profile-image-laurel .laurel-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Badge de verificación */
+.verified-badge {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    z-index: 3;
+    background: #4CAF50;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.verified-badge i {
+    color: white;
+    font-size: 12px;
+}
+
+/* Estilos específicos para el shop */
+.shop-seller-card .profile-image-laurel img {
+    width: 60px;
+    height: 60px;
+}
+
+.shop-seller-card .laurel-svg {
+    width: 80px;
+    height: 80px;
+}
+
+.shop-seller-card .verified-badge {
+    width: 20px;
+    height: 20px;
+    bottom: 2px;
+    right: 2px;
+}
+
+.shop-seller-card .verified-badge i {
+    font-size: 10px;
+}
+
+/* Tarjetas de productos */
+.product-card .seller-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 8px;
+    background: rgba(0,0,0,0.02);
+    border-radius: 8px;
+}
+
+.product-card .seller-avatar {
+    flex-shrink: 0;
+}
+
+.product-card .seller-details h6 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.product-card .seller-rating {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.product-card .seller-rating .stars {
+    color: #ffd700;
+}
+
+.product-card .seller-rating .rating-value {
+    font-weight: 600;
+}
+
+.product-card .seller-rating .rating-count {
+    color: #666;
+    font-size: 11px;
+}
+
+/* Insignia de verificación inline */
+.verified-icon {
+    color: #4CAF50;
+    font-size: 14px;
+    margin-left: 4px;
+}
+
+/* Animaciones para las insignias */
+@keyframes glow-diamond {
+    0%, 100% { filter: drop-shadow(0 0 3px #e1f5fe); }
+    50% { filter: drop-shadow(0 0 8px #81d4fa); }
+}
+
+@keyframes glow-gold {
+    0%, 100% { filter: drop-shadow(0 0 3px #ffd700); }
+    50% { filter: drop-shadow(0 0 6px #ffb300); }
+}
+
+@keyframes glow-silver {
+    0%, 100% { filter: drop-shadow(0 0 2px #c0c0c0); }
+    50% { filter: drop-shadow(0 0 4px #9e9e9e); }
+}
+
+@keyframes glow-bronze {
+    0%, 100% { filter: drop-shadow(0 0 2px #cd7f32); }
+    50% { filter: drop-shadow(0 0 4px #8d6e63); }
+}
+
+/* Aplicar animaciones según el tipo de insignia */
+.laurel-diamond { animation: glow-diamond 3s ease-in-out infinite; }
+.laurel-gold { animation: glow-gold 3s ease-in-out infinite; }
+.laurel-silver { animation: glow-silver 3s ease-in-out infinite; }
+.laurel-bronze { animation: glow-bronze 3s ease-in-out infinite; }
+
+/* Estilos para seller stats */
+.seller-stats-card .profile-image-laurel img {
+    width: 80px;
+    height: 80px;
+}
+
+.seller-stats-card .laurel-svg {
+    width: 100px;
+    height: 100px;
+}
+
+.seller-stats-card .verified-badge {
+    width: 26px;
+    height: 26px;
+    bottom: 5px;
+    right: 5px;
+}
+
+.seller-stats-card .verified-badge i {
+    font-size: 14px;
+}
+
+/* Rating display mejorado */
+.rating-display {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.rating-stars {
+    color: #ffd700;
+    font-size: 16px;
+}
+
+.rating-value {
+    font-size: 18px;
+}
+
+.rating-count {
+    font-size: 14px;
+    color: #666;
+    font-weight: normal;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .shop-seller-card .profile-image-laurel img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .shop-seller-card .laurel-svg {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .product-card .seller-info {
+        padding: 6px;
+        gap: 6px;
+    }
+    
+    .product-card .seller-details h6 {
+        font-size: 13px;
+    }
+    
+    .product-card .seller-rating {
+        font-size: 11px;
+    }
+}
