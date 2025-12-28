@@ -455,7 +455,7 @@ let currentFilter = 'all';
 
 async function cargarOfertas() {
   try {
-    const res = await fetch('shop-products-api.php?action=get_my_products&user_id=<?= $user_id ?>');
+    const res = await fetch('shop-actions.php?action=get_user_products');
     const data = await res.json();
     if (data.success) {
       offers = data.products || [];

@@ -411,7 +411,7 @@ let currentFilter = 'all';
 
 async function cargarCompras() {
   try {
-    const res = await fetch('shop-orders-api.php?action=get_my_purchases&user_id=<?= $user_id ?>');
+    const res = await fetch('shop-actions.php?action=get_user_orders');
     const data = await res.json();
     if (data.success) {
       purchases = data.orders || [];

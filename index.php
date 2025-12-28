@@ -730,7 +730,7 @@ const userFavorites = new Set();
 // Cargar productos desde la API
 async function cargarProductos() {
   try {
-    const res = await fetch('shop-products-api.php?action=get_products&status=active');
+    const res = await fetch('shop-actions.php?action=get_products');
     const data = await res.json();
     if (data.success) {
       products = data.products || [];
@@ -738,6 +738,8 @@ async function cargarProductos() {
         if (p.is_favorited) userFavorites.add(p.id);
       });
       aplicarFiltros();
+    } else {
+      console.error('Error:', data.error);
     }
   } catch (e) {
     console.error(e);
@@ -846,11 +848,12 @@ function aplicarFiltros() {
   grid.innerHTML = list.map(p => {
     const rating = parseFloat(p.seller_rating) || 0;
     const isFav = userFavorites.has(p.id);
-    const avatar = p.seller_avatar_id > 0
-      ? `../mostrar_imagen.php?id=${p.seller_avatar_id}`
-      : `https://ui-avatars.com/api/?name=${encodeURIComponent(p.seller_name)}&background=42ba25&color=fff`;
+    const avatar = p.seller_avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(p.seller_name || 'Usuario')}&background=42ba25&color=fff`;
     const description = p.description || 'Producto exclusivo de viajero';
     const stock = parseInt(p.stock) || 0;
+    const origin = p.origin || p.origin_country || 'Internacional';
+    const destination = p.destination || p.destination_city || 'A coordinar';
+    const totalRatings = parseInt(p.total_ratings) || 0;
 
     let stockTag = '';
     if (stock === 0) {
@@ -879,23 +882,21 @@ function aplicarFiltros() {
           <div class="route-box">
             <div>
               <div class="route-label">Viene de</div>
-              <div class="route-val">${p.origin_country || 'Internacional'}</div>
+              <div class="route-val">${origin}</div>
             </div>
             <div style="border-left:1px solid #eee; padding-left:10px;">
               <div class="route-label">Entrega en</div>
-              <div class="route-val">${p.destination_city || 'A coordinar'}</div>
+              <div class="route-val">${destination}</div>
             </div>
           </div>
 
           <div class="user-info">
-            <img src="${avatar}" class="avatar-img" alt="${p.seller_name}">
+            <img src="${avatar}" class="avatar-img" alt="${p.seller_name || 'Vendedor'}">
             <div>
-              <div style="font-weight:600; font-size:13px;">@${p.seller_name}</div>
-              <div style="font-size:11px; color:#f59e0b;">★ ${rating.toFixed(1)}</div>
+              <div style="font-weight:600; font-size:13px;">@${p.seller_username || p.seller_name || 'vendedor'}</div>
+              <div style="font-size:11px; color:#f59e0b;">★ ${rating.toFixed(1)} ${totalRatings > 0 ? `(${totalRatings})` : ''}</div>
             </div>
-            <div class="sales-badge">
-              <i class="fas fa-shopping-bag"></i> ${p.sales_count || 0} ventas
-            </div>
+            ${p.seller_verified ? '<div class="verified-badge"><i class="fas fa-check-circle"></i></div>' : ''}
           </div>
 
           <div class="price-action">
