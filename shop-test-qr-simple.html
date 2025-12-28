@@ -1,0 +1,166 @@
+<?php
+session_start();
+$userId = isset($_SESSION['usuario_id']) ? $_SESSION['usuario_id'] : 0;
+
+// Si se ejecuta el test vía GET
+if (isset($_GET['test'])) {
+    header('Content-Type: application/json');
+    
+    if ($_GET['test'] == 'proposals') {
+        $url = "http://{$_SERVER['HTTP_HOST']}/shop/shop-requests-actions.php?action=get_my_proposals&user_id={$userId}";
+        $response = file_get_contents($url);
+        echo $response;
+        exit;
+    }
+    
+    if ($_GET['test'] == 'requests') {
+        $url = "http://{$_SERVER['HTTP_HOST']}/shop/shop-requests-actions.php?action=get_requests&status=all";
+        $response = file_get_contents($url);
+        echo $response;
+        exit;
+    }
+}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Test Ultra Simple</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background: #f0f9ff; }
+        .box { background: white; padding: 20px; margin: 20px 0; border-radius: 10px; }
+        button { background: #42ba25; color: white; border: none; padding: 15px 30px; 
+                 font-size: 16px; cursor: pointer; border-radius: 8px; margin: 5px; }
+        button:hover { background: #2d8518; }
+        pre { background: #1f2937; color: #10b981; padding: 15px; border-radius: 8px; 
+              overflow-x: auto; max-height: 400px; }
+        .stat { background: #42ba25; color: white; padding: 5px 15px; border-radius: 15px; 
+                display: inline-block; margin: 5px; }
+        img { width: 200px; height: 150px; object-fit: cover; border: 2px solid #42ba25; 
+              border-radius: 8px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Test Ultra Simple</h1>
+    <p>User ID: <strong><?php echo $userId; ?></strong></p>
+
+    <div class="box">
+        <h2>Opción 1: Test Manual (Abre estos URLs)</h2>
+        <p><a href="shop-requests-actions.php?action=get_my_proposals&user_id=<?php echo $userId; ?>" target="_blank">
+            ▶️ Ver get_my_proposals en nueva pestaña
+        </a></p>
+        <p><a href="shop-requests-actions.php?action=get_requests&status=all" target="_blank">
+            ▶️ Ver get_requests en nueva pestaña
+        </a></p>
+    </div>
+
+    <div class="box">
+        <h2>Opción 2: Test con Botón Simple</h2>
+        <button onclick="alert('Botón funciona!'); testBasic();">▶️ TEST BÁSICO</button>
+        <div id="output"></div>
+    </div>
+
+    <div class="box">
+        <h2>Opción 3: Carga Directa PHP</h2>
+        <?php
+        // Test directo en PHP
+        $proposals_url = "http://{$_SERVER['HTTP_HOST']}/shop/shop-requests-actions.php?action=get_my_proposals&user_id={$userId}";
+        $requests_url = "http://{$_SERVER['HTTP_HOST']}/shop/shop-requests-actions.php?action=get_requests&status=all";
+        
+        echo "<h3>📋 Test get_my_proposals:</h3>";
+        $proposals_data = @file_get_contents($proposals_url);
+        if ($proposals_data) {
+            $proposals_json = json_decode($proposals_data, true);
+            $count = count($proposals_json['proposals'] ?? []);
+            echo "<span class='stat'>Total: {$count} propuestas</span>";
+            echo "<pre>" . htmlspecialchars(json_encode($proposals_json, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) . "</pre>";
+        } else {
+            echo "<p style='color: red;'>❌ Error al cargar propuestas</p>";
+        }
+        
+        echo "<h3>📋 Test get_requests:</h3>";
+        $requests_data = @file_get_contents($requests_url);
+        if ($requests_data) {
+            $requests_json = json_decode($requests_data, true);
+            $total = count($requests_json['requests'] ?? []);
+            $with_images = 0;
+            
+            foreach (($requests_json['requests'] ?? []) as $req) {
+                if (!empty($req['reference_images'])) {
+                    $with_images++;
+                }
+            }
+            
+            echo "<span class='stat'>Total: {$total}</span>";
+            echo "<span class='stat'>Con imágenes: {$with_images}</span>";
+            echo "<pre>" . htmlspecialchars(json_encode(array_slice($requests_json['requests'] ?? [], 0, 3), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) . "</pre>";
+            
+            // Combinar
+            if ($proposals_data && $requests_data) {
+                echo "<h3>🔄 Combinación:</h3>";
+                $proposals = $proposals_json['proposals'] ?? [];
+                $requests = $requests_json['requests'] ?? [];
+                
+                $requests_map = [];
+                foreach ($requests as $req) {
+                    $requests_map[$req['id']] = $req;
+                }
+                
+                $matched = 0;
+                $images_added = 0;
+                
+                foreach ($proposals as &$prop) {
+                    if (isset($requests_map[$prop['request_id']])) {
+                        $matched++;
+                        $req = $requests_map[$prop['request_id']];
+                        if (!empty($req['reference_images'])) {
+                            $prop['reference_images'] = $req['reference_images'];
+                            $images_added++;
+                        }
+                    }
+                }
+                
+                echo "<span class='stat'>Propuestas: " . count($proposals) . "</span>";
+                echo "<span class='stat'>Matched: {$matched}</span>";
+                echo "<span class='stat'>Con imágenes: {$images_added}</span>";
+                
+                if ($images_added > 0) {
+                    echo "<h4>📷 Preview:</h4>";
+                    foreach ($proposals as $prop) {
+                        if (!empty($prop['reference_images'][0])) {
+                            echo "<img src='{$prop['reference_images'][0]}' alt='Imagen'>";
+                        }
+                    }
+                }
+                
+                echo "<h4>📋 Propuestas combinadas (primeras 2):</h4>";
+                echo "<pre>" . htmlspecialchars(json_encode(array_slice($proposals, 0, 2), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) . "</pre>";
+            }
+            
+        } else {
+            echo "<p style='color: red;'>❌ Error al cargar requests</p>";
+        }
+        ?>
+    </div>
+
+    <script>
+        console.log('JavaScript cargado');
+        
+        function testBasic() {
+            console.log('testBasic ejecutado');
+            document.getElementById('output').innerHTML = '<p>✅ JavaScript funciona!</p>';
+            
+            fetch('shop-requests-actions.php?action=get_my_proposals&user_id=<?php echo $userId; ?>')
+                .then(r => r.json())
+                .then(data => {
+                    console.log('Data:', data);
+                    document.getElementById('output').innerHTML += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                })
+                .catch(e => {
+                    console.error('Error:', e);
+                    document.getElementById('output').innerHTML += '<p style="color:red">Error: ' + e.message + '</p>';
+                });
+        }
+    </script>
+</body>
+</html>

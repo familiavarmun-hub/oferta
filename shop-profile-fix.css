@@ -1,0 +1,127 @@
+/* ========================================
+   FIX GLOBAL - FOTOS DE PERFIL SHOP
+   ========================================
+   
+   Este archivo corrige las imágenes de perfil
+   en TODO el shop de SendVialo.
+   
+   Incluir en TODAS las páginas del shop:
+   <link rel="stylesheet" href="shop-profile-fix.css">
+   ======================================== */
+
+/* ✅ CONTENEDOR PRINCIPAL */
+.profile-image-laurel {
+    position: relative;
+    display: inline-block;
+    line-height: 0; /* Elimina espacios */
+}
+
+/* ✅ IMAGEN DE PERFIL - CORREGIDA */
+.profile-image-laurel img {
+    object-fit: cover !important;      /* NO deforma la imagen */
+    border-radius: 50% !important;     /* Circular perfecta */
+    display: block !important;         /* Sin espacios blancos */
+}
+
+/* ✅ VARIANTES DE TAMAÑO */
+.profile-image-laurel img[width="40"],
+.profile-image-laurel img[style*="width: 40px"] {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.profile-image-laurel img[width="50"],
+.profile-image-laurel img[style*="width: 50px"] {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.profile-image-laurel img[width="60"],
+.profile-image-laurel img[style*="width: 60px"] {
+    width: 60px !important;
+    height: 60px !important;
+}
+
+.profile-image-laurel img[width="80"],
+.profile-image-laurel img[style*="width: 80px"] {
+    width: 80px !important;
+    height: 80px !important;
+}
+
+.profile-image-laurel img[width="100"],
+.profile-image-laurel img[style*="width: 100px"] {
+    width: 100px !important;
+    height: 100px !important;
+}
+
+.profile-image-laurel img[width="120"],
+.profile-image-laurel img[style*="width: 120px"] {
+    width: 120px !important;
+    height: 120px !important;
+}
+
+/* ✅ LAUREL SVG (corona alrededor) */
+.laurel-svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ✅ AVATARES EN DIFERENTES CONTEXTOS */
+.seller-avatar .profile-image-laurel img,
+.user-avatar .profile-image-laurel img,
+.vendor-avatar .profile-image-laurel img,
+.shop-avatar .profile-image-laurel img {
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    display: block !important;
+}
+
+/* ✅ AVATARES EN CARDS/LISTADOS */
+.product-card .profile-image-laurel img,
+.seller-card .profile-image-laurel img,
+.vendor-card .profile-image-laurel img {
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    display: block !important;
+}
+
+/* ✅ AVATARES EN HEADERS */
+.seller-header .profile-image-laurel img,
+.vendor-header .profile-image-laurel img {
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    display: block !important;
+}
+
+/* ✅ RESPONSIVE - MÓVILES */
+@media (max-width: 768px) {
+    .profile-image-laurel img {
+        object-fit: cover !important;
+        border-radius: 50% !important;
+        display: block !important;
+    }
+}
+
+/* ✅ FALLBACK PARA IMÁGENES SIN CLASE ESPECÍFICA */
+img[src*="mostrar_imagen.php"],
+img[src*="ui-avatars.com"] {
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    display: block !important;
+}
+
+/* ✅ CORRECCIÓN PARA CONTENEDORES FLEXBOX */
+.seller-info .profile-image-laurel,
+.vendor-info .profile-image-laurel {
+    flex-shrink: 0; /* No se comprime */
+}
+
+/* ✅ ASEGURAR QUE NO HAY OVERFLOW */
+.profile-image-laurel {
+    overflow: hidden;
+    border-radius: 50%;
+}

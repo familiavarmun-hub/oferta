@@ -1,0 +1,33 @@
+# Environment files with secrets
+.env
+.env.local
+.env.*.local
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+error_log.txt
+
+# Uploads
+uploads/
+temp/
+
+# Vendor (if using composer)
+vendor/
+
+# Node modules (if applicable)
+node_modules/
+
+# Cache
+cache/
+*.cache
