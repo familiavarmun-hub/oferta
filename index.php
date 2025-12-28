@@ -17,7 +17,7 @@ $user_name = $user_logged_in ? ($_SESSION['usuario_nombre'] ?? $_SESSION['full_n
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SendVialo Shop - Productos de Viajeros</title>
+  <title>SendVialo Shop - ¿Quién quiere? Ofertas de Viajeros</title>
   <link rel="stylesheet" href="../css/estilos.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -1039,7 +1039,7 @@ body {
       data-user-name="<?= htmlspecialchars($user_name) ?>"
       <?php endif; ?>>
       
-  <?php if (file_exists('shop-header.php')) include 'shop-header.php'; ?>
+  <?php include 'header2.php'; ?>
 
   <!-- HEADER PREMIUM SOFISTICADO -->
   <div class="shop-header">
@@ -1049,33 +1049,33 @@ body {
     <div class="shop-container">
       <div class="header-content">
         <h1>
-          Viajeros que <span class="accent">llevan</span><br>
-          Productos que <span class="accent">necesitas</span>
+          <span class="accent">¿Quién quiere?</span><br>
+          Productos de <span class="accent">Viajeros</span>
         </h1>
 
         <p class="shop-subtitle">
-          Conecta con viajeros que van a tu ciudad
+          Viajeros ofrecen productos exclusivos de sus destinos
         </p>
 
         <p class="shop-description">
-          Miles de viajeros están listos para llevar ese producto que necesitas. 
-          Haz tu oferta, negocia el precio y recibe productos únicos de cualquier parte del mundo.
+          Descubre productos únicos que viajeros traen de todo el mundo.
+          Compra directamente, negocia el precio y recibe artículos exclusivos en tu ciudad.
         </p>
         
         <div class="cta-section">
           <a href="#productos" class="btn-primary">
-            <i class="fas fa-search"></i>
-            Explorar Productos
+            <i class="fas fa-shopping-bag"></i>
+            Ver Productos
           </a>
           <?php if ($user_logged_in): ?>
             <a href="shop-manage-products.php" class="btn-secondary">
-              <i class="fas fa-plus"></i>
-              Vender Productos
+              <i class="fas fa-plus-circle"></i>
+              ¿Quién quiere…?
             </a>
           <?php else: ?>
             <a href="../login.php" class="btn-secondary login-required" onclick="return confirmLogin()">
               <i class="fas fa-sign-in-alt"></i>
-              Iniciar Sesión para Vender
+              Iniciar Sesión para Ofrecer
             </a>
           <?php endif; ?>
         </div>
@@ -1155,8 +1155,8 @@ body {
   <!-- TÍTULO PREVIO A LOS PRODUCTOS -->
   <div class="prefilters-title" aria-labelledby="titulo-prefiltros">
     <div class="shop-container">
-      <h2 id="titulo-prefiltros">Productos que viajeros están llevando a tu destino</h2>
-      <p class="prefilters-subtitle">Busca el tuyo.</p>
+      <h2 id="titulo-prefiltros">Ofertas de viajeros disponibles ahora</h2>
+      <p class="prefilters-subtitle">¿Quién quiere? Encuentra productos exclusivos.</p>
     </div>
   </div>
 
@@ -1174,16 +1174,16 @@ body {
 
       <!-- Estado vacío -->
       <div class="empty-state" id="empty-state" style="display:none;">
-        <i class="fas fa-shopping-bag"></i>
-        <h3>No hay productos disponibles</h3>
-        <p>Sé el primero en vender productos únicos de tus viajes</p>
+        <i class="fas fa-store"></i>
+        <h3>No hay ofertas disponibles</h3>
+        <p>Sé el primero en ofrecer productos de tus viajes</p>
         <?php if ($user_logged_in): ?>
           <a href="shop-manage-products.php" class="btn-primary" style="margin-top: 25px;">
-            <i class="fas fa-plus"></i> Vender productos
+            <i class="fas fa-plus-circle"></i> ¿Quién quiere…?
           </a>
         <?php else: ?>
           <a href="../login.php" class="btn-primary" style="margin-top: 25px;">
-            <i class="fas fa-sign-in-alt"></i> Iniciar sesión para vender
+            <i class="fas fa-sign-in-alt"></i> Iniciar sesión para ofrecer
           </a>
         <?php endif; ?>
       </div>
