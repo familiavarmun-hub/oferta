@@ -1360,12 +1360,11 @@ function addToCart(id) {
 
   Swal.fire({
     toast: true,
-    position: 'bottom-end',
+    position: 'top-end',
     icon: 'success',
-    title: `${product.name} añadido al carrito`,
+    title: 'Añadido al carrito',
     showConfirmButton: false,
-    timer: 2000,
-    timerProgressBar: true
+    timer: 1500
   });
 }
 

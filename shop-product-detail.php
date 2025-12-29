@@ -1464,14 +1464,11 @@ if ($is_seller) {
             
             Swal.fire({
                 icon: 'success',
-                title: '¡Añadido al carrito!',
-                text: `${quantity} x <?= addslashes($product['name']) ?>`,
-                timer: 2000,
+                title: 'Añadido al carrito',
                 showConfirmButton: false,
                 toast: true,
                 position: 'top-end',
-                background: '#41ba0d',
-                color: '#fff'
+                timer: 1500
             });
         }
 
