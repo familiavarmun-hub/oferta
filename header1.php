@@ -378,14 +378,14 @@ if ($usuario_actual_id > 0) {
           </li>
 
        <li class="nav-item sv-profile-menu desktop-only">
-  <a href="perfil_shop.php" class="profile-trigger" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
+  <a href="shop_mi_perfil.php" class="profile-trigger" style="text-decoration: none; display: flex; align-items: center; gap: 8px;">
     <?php echo $profileImageHtml; ?>
     <i class="fas fa-chevron-down profile-arrow"></i>
   </a>
   <ul class="sub-menus">
                 
                 
-              <li><a href="perfil_shop.php"><i class="fas fa-user-circle"></i> Perfil</a></li>
+              <li><a href="shop_mi_perfil.php"><i class="fas fa-user-circle"></i> Perfil</a></li>
               <li>
                 <a href="shop-chat.php?username=<?php echo urlencode($username); ?>">
                   <i class="fa-regular fa-message"></i> Mensajes
@@ -400,7 +400,7 @@ if ($usuario_actual_id > 0) {
           </li>
 
           <!-- ===== SOLO MÓVIL (menú desplegable) ===== -->
-          <li class="nav-item mobile-only"><a href="perfil_shop.php"><i class="fas fa-user-circle"></i> Perfil</a></li>
+          <li class="nav-item mobile-only"><a href="shop_mi_perfil.php"><i class="fas fa-user-circle"></i> Perfil</a></li>
           <li class="nav-item mobile-only"><a href="shop-my-requests.php"><i class="fas fa-clipboard-list"></i> Mis Solicitudes</a></li>
 
           <li class="nav-item mobile-only">
@@ -475,7 +475,7 @@ if ($usuario_actual_id > 0) {
       </a>
     </li>
     <li>
-      <a href="perfil_shop.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'perfil_shop.php' ? 'active' : ''; ?>">
+      <a href="shop_mi_perfil.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'shop_mi_perfil.php' ? 'active' : ''; ?>">
         <div class="nav-profile-wrapper">
           <?php echo $profileImageHtml; ?>
         </div>

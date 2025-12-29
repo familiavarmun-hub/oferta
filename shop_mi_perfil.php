@@ -901,7 +901,7 @@ $badge = getBadgeType($promedio_valoracion);
     </style>
 </head>
 <body>
-    <?php include __DIR__ . '/shop-header.php'; ?>
+    <?php include __DIR__ . '/header1.php'; ?>
 
     <!-- HERO SECTION -->
     <section class="hero">
