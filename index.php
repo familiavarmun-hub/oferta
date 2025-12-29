@@ -1633,6 +1633,9 @@ function proceedToCheckout() {
     return;
   }
 
+  // Cerrar el modal del carrito antes de mostrar el resumen
+  closeCart();
+
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const currency = cart[0]?.currency || 'EUR';
