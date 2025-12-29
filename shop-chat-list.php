@@ -519,7 +519,7 @@ $conversations = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </style>
 </head>
 <body>
-    <?php include 'header1.php'; ?>
+    <?php include 'header2.php'; ?>
 
     <div class="chat-layout" id="chatLayout">
         <!-- SIDEBAR -->

@@ -74,7 +74,7 @@ $user_id = $_SESSION['usuario_id'];
 
         .header-title .icon {
             font-size: 32px;
-            color: #4CAF50;
+            color: #41ba0d;
         }
 
         .header-actions {
@@ -97,7 +97,7 @@ $user_id = $_SESSION['usuario_id'];
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            background: linear-gradient(135deg, #41ba0d, #5dcb2a);
             color: white;
         }
 
@@ -113,8 +113,8 @@ $user_id = $_SESSION['usuario_id'];
         }
 
         .btn-secondary:hover {
-            border-color: #4CAF50;
-            color: #4CAF50;
+            border-color: #41ba0d;
+            color: #41ba0d;
         }
 
         .container {
@@ -154,14 +154,14 @@ $user_id = $_SESSION['usuario_id'];
         }
 
         .filter-btn.active {
-            background: #4CAF50;
+            background: #41ba0d;
             color: white;
-            border-color: #4CAF50;
+            border-color: #41ba0d;
         }
 
         .filter-btn:hover {
-            border-color: #4CAF50;
-            color: #4CAF50;
+            border-color: #41ba0d;
+            color: #41ba0d;
         }
 
         .filter-btn.active:hover {
@@ -240,7 +240,7 @@ $user_id = $_SESSION['usuario_id'];
             top: 0;
             bottom: 0;
             width: 4px;
-            background: #4CAF50;
+            background: #41ba0d;
         }
 
         .notification-icon {
@@ -302,7 +302,7 @@ $user_id = $_SESSION['usuario_id'];
 
         .loading-state i {
             font-size: 3rem;
-            color: #4CAF50;
+            color: #41ba0d;
             animation: spin 1s linear infinite;
         }
 
@@ -323,7 +323,7 @@ $user_id = $_SESSION['usuario_id'];
         }
         
         .empty-state i.fa-check-circle {
-            color: #4CAF50;
+            color: #41ba0d;
         }
 
         .empty-state h2 {
@@ -424,7 +424,7 @@ $user_id = $_SESSION['usuario_id'];
     </style>
 </head>
 <body>
-    <?php if (file_exists('header1.php')) include 'header1.php'; ?>
+    <?php include 'header2.php'; ?>
 
     <div class="header">
         <div class="header-container">
@@ -765,7 +765,7 @@ $user_id = $_SESSION['usuario_id'];
                 Swal.fire({
                     icon: 'info',
                     title: 'No hay notificaciones sin leer',
-                    confirmButtonColor: '#4CAF50'
+                    confirmButtonColor: '#41ba0d'
                 });
                 return;
             }
@@ -775,7 +775,7 @@ $user_id = $_SESSION['usuario_id'];
                 html: `Se marcarán <strong>${unreadCount}</strong> notificaciones como leídas.`,
                 icon: 'question',
                 showCancelButton: true,
-                confirmButtonColor: '#4CAF50',
+                confirmButtonColor: '#41ba0d',
                 cancelButtonColor: '#666',
                 confirmButtonText: 'Sí, marcar',
                 cancelButtonText: 'Cancelar'
@@ -799,7 +799,7 @@ $user_id = $_SESSION['usuario_id'];
                             icon: 'success',
                             title: 'Listo',
                             text: data.message,
-                            confirmButtonColor: '#4CAF50'
+                            confirmButtonColor: '#41ba0d'
                         });
                         
                         await loadNotifications();
@@ -826,7 +826,7 @@ $user_id = $_SESSION['usuario_id'];
                     icon: 'info',
                     title: 'No hay notificaciones leídas',
                     text: 'Todas tus notificaciones están sin leer',
-                    confirmButtonColor: '#4CAF50'
+                    confirmButtonColor: '#41ba0d'
                 });
                 return;
             }
@@ -859,7 +859,7 @@ $user_id = $_SESSION['usuario_id'];
                             icon: 'success',
                             title: '¡Limpieza completada!',
                             text: data.message,
-                            confirmButtonColor: '#4CAF50',
+                            confirmButtonColor: '#41ba0d',
                             timer: 3000
                         });
                         

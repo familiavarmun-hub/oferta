@@ -186,7 +186,7 @@ function extractCity($location) {
         }
 
         .breadcrumb-nav a {
-            color: #4CAF50;
+            color: #41ba0d;
             text-decoration: none;
         }
 
@@ -257,7 +257,7 @@ function extractCity($location) {
         }
 
         .verified-icon {
-            color: #4CAF50;
+            color: #41ba0d;
             font-size: 1.8rem;
         }
 
@@ -305,7 +305,7 @@ function extractCity($location) {
         .stat-number {
             font-size: 2rem;
             font-weight: 700;
-            color: #4CAF50;
+            color: #41ba0d;
             margin-bottom: 5px;
         }
 
@@ -362,7 +362,7 @@ function extractCity($location) {
         }
 
         .info-icon {
-            color: #4CAF50;
+            color: #41ba0d;
             font-size: 1.2rem;
             margin-top: 3px;
         }
@@ -467,7 +467,7 @@ function extractCity($location) {
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            border-color: #4CAF50;
+            border-color: #41ba0d;
         }
 
         .product-image {
@@ -490,7 +490,7 @@ function extractCity($location) {
         }
 
         .product-price {
-            color: #4CAF50;
+            color: #41ba0d;
             font-weight: 700;
             font-size: 1.2rem;
             margin-bottom: 8px;
@@ -515,7 +515,7 @@ function extractCity($location) {
             background: #f8f9fa;
             padding: 25px;
             border-radius: 15px;
-            border-left: 4px solid #4CAF50;
+            border-left: 4px solid #41ba0d;
             transition: all 0.3s ease;
         }
 
@@ -547,7 +547,7 @@ function extractCity($location) {
 
         .trip-price {
             font-weight: 600;
-            color: #4CAF50;
+            color: #41ba0d;
         }
 
         /* EMPTY STATES */
@@ -592,7 +592,7 @@ function extractCity($location) {
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            background: linear-gradient(135deg, #41ba0d, #5dcb2a);
             color: white;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
@@ -606,12 +606,12 @@ function extractCity($location) {
 
         .btn-secondary {
             background: white;
-            color: #4CAF50;
-            border: 2px solid #4CAF50;
+            color: #41ba0d;
+            border: 2px solid #41ba0d;
         }
 
         .btn-secondary:hover {
-            background: #4CAF50;
+            background: #41ba0d;
             color: white;
             text-decoration: none;
         }
@@ -687,7 +687,7 @@ function extractCity($location) {
       data-user-id="<?= $current_user_id ?>" 
       <?php endif; ?>>
       
-    <?php if (file_exists('header1.php')) include 'header1.php'; ?>
+    <?php include 'header2.php'; ?>
 
     <!-- BREADCRUMB -->
     <div class="breadcrumb">
@@ -980,9 +980,9 @@ function extractCity($location) {
                         </a>
                     </div>
                     
-                    <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #4CAF50;">
+                    <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 10px; border-left: 4px solid #41ba0d;">
                         <h4 style="margin-bottom: 10px; color: #333;">
-                            <i class="fas fa-shield-alt" style="color: #4CAF50;"></i>
+                            <i class="fas fa-shield-alt" style="color: #41ba0d;"></i>
                             Compra Segura
                         </h4>
                         <p style="margin: 0; color: #666; font-size: 0.95rem; line-height: 1.5;">
@@ -1016,7 +1016,7 @@ function extractCity($location) {
                 showCancelButton: true,
                 confirmButtonText: 'Ir al login',
                 cancelButtonText: 'Cancelar',
-                confirmButtonColor: '#4CAF50'
+                confirmButtonColor: '#41ba0d'
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = '../login.php';
@@ -1031,7 +1031,7 @@ function extractCity($location) {
                 icon: 'info',
                 title: 'No puedes contactarte a ti mismo',
                 text: 'Este es tu propio perfil',
-                confirmButtonColor: '#4CAF50'
+                confirmButtonColor: '#41ba0d'
             });
             return;
         }
@@ -1159,7 +1159,7 @@ function extractCity($location) {
                     icon: 'success',
                     title: '¡Mensaje enviado!',
                     text: data.message,
-                    confirmButtonColor: '#4CAF50'
+                    confirmButtonColor: '#41ba0d'
                 });
             } else {
                 Swal.fire({
@@ -1191,7 +1191,7 @@ function extractCity($location) {
                 showCancelButton: true,
                 confirmButtonText: 'Ir al login',
                 cancelButtonText: 'Cancelar',
-                confirmButtonColor: '#4CAF50'
+                confirmButtonColor: '#41ba0d'
             }).then((result) => {
                 if (result.isConfirmed) {
                     window.location.href = '../login.php';
@@ -1206,7 +1206,7 @@ function extractCity($location) {
                 icon: 'info',
                 title: 'No puedes seguirte a ti mismo',
                 text: 'Este es tu propio perfil',
-                confirmButtonColor: '#4CAF50'
+                confirmButtonColor: '#41ba0d'
             });
             return;
         }
@@ -1248,7 +1248,7 @@ function extractCity($location) {
                     icon: 'success',
                     title: isFollowing ? '¡Siguiendo!' : 'Dejaste de seguir',
                     text: data.message,
-                    confirmButtonColor: '#4CAF50',
+                    confirmButtonColor: '#41ba0d',
                     timer: 2000
                 });
             } else {
