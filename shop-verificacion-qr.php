@@ -188,7 +188,7 @@ function getProgressInfo($state) {
     </style>
 </head>
 <body>
-    <?php if (file_exists('header1.php')) include 'header1.php'; ?>
+    <?php include 'header2.php'; ?>
 
     <div class="container">
         <header class="page-header">

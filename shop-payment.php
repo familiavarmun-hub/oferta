@@ -138,7 +138,7 @@ $verificado = (int)$stmt_verified->fetchColumn();
       --color1: #41ba0d;
       --color2: #5dcb2a;
       --primary-color: #2196F3;
-      --success-color: #4CAF50;
+      --success-color: #41ba0d;
       --danger-color: #f44336;
       --warning-color: #ff9800;
       --text-primary: #1A1F36;
@@ -420,7 +420,7 @@ $verificado = (int)$stmt_verified->fetchColumn();
   </style>
 </head>
 <body>
-  <?php if (file_exists('header1.php')) include 'header1.php'; ?>
+  <?php include 'header2.php'; ?>
 
   <div class="payment-container">
     <div class="page-header">

@@ -25,7 +25,7 @@ $usuario_id = (int)$_SESSION['usuario_id'];
  * - Trae config.php, insignias, notificaciones, etc.
  * - Renderiza el header y la barra móvil inferior (si corresponde)
  */
-include __DIR__ . '/header1.php';
+include 'header2.php';
 
 // --- OBTENER DATOS DEL USUARIO ---
 $defaultImageURL = '../Imagenes/user-default.jpg';

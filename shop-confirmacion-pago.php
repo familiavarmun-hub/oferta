@@ -67,7 +67,7 @@ $rating = $rating_data ? round($rating_data['rating'], 1) : 0;
   <style>
     :root {
       --primary-color: #2196F3;
-      --success-color: #4CAF50;
+      --success-color: #41ba0d;
       --warning-color: #FF9800;
     }
 
@@ -261,7 +261,7 @@ $rating = $rating_data ? round($rating_data['rating'], 1) : 0;
   </style>
 </head>
 <body>
-  <?php if (file_exists('header1.php')) include 'header1.php'; ?>
+  <?php include 'header2.php'; ?>
 
   <div class="confirmation-container">
    

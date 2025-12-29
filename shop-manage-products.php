@@ -1775,7 +1775,7 @@ body {
                 timer: 2000,
                 showConfirmButton: false,
                 background: '#fff',
-                confirmButtonColor: '#4CAF50'
+                confirmButtonColor: '#41ba0d'
             });
         }
 

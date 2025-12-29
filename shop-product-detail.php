@@ -180,7 +180,7 @@ if ($is_seller) {
         }
 
         .breadcrumb-nav a {
-            color: #4CAF50;
+            color: #41ba0d;
             text-decoration: none;
         }
 
@@ -240,7 +240,7 @@ if ($is_seller) {
 
         .thumbnail.active,
         .thumbnail:hover {
-            border-color: #4CAF50;
+            border-color: #41ba0d;
         }
 
         /* INFORMACIÓN DEL PRODUCTO */
@@ -260,7 +260,7 @@ if ($is_seller) {
         .product-price {
             font-size: 2.5rem;
             font-weight: 700;
-            color: #4CAF50;
+            color: #41ba0d;
         }
 
         .stock-info {
@@ -286,7 +286,7 @@ if ($is_seller) {
             background: #f8f9fa;
             padding: 20px;
             border-radius: 12px;
-            border-left: 4px solid #4CAF50;
+            border-left: 4px solid #41ba0d;
         }
 
         .route-info h4 {
@@ -331,7 +331,7 @@ if ($is_seller) {
         }
 
         .verified-icon {
-            color: #4CAF50;
+            color: #41ba0d;
         }
 
         .seller-rating {
@@ -357,7 +357,7 @@ if ($is_seller) {
             background: #f8f9fa;
             padding: 25px;
             border-radius: 15px;
-            border: 2px solid #4CAF50;
+            border: 2px solid #41ba0d;
         }
 
         .quantity-selector {
@@ -428,7 +428,7 @@ if ($is_seller) {
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            background: linear-gradient(135deg, #41ba0d, #5dcb2a);
             color: white;
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
         }
@@ -441,12 +441,12 @@ if ($is_seller) {
 
         .btn-secondary {
             background: #fff;
-            color: #4CAF50;
-            border: 2px solid #4CAF50;
+            color: #41ba0d;
+            border: 2px solid #41ba0d;
         }
 
         .btn-secondary:hover {
-            background: #4CAF50;
+            background: #41ba0d;
             color: white;
         }
 
@@ -487,8 +487,8 @@ if ($is_seller) {
         }
 
         .tab-btn.active {
-            color: #4CAF50;
-            border-bottom-color: #4CAF50;
+            color: #41ba0d;
+            border-bottom-color: #41ba0d;
         }
 
         .tab-content {
@@ -595,12 +595,12 @@ if ($is_seller) {
         }
 
         .btn-offer-accept {
-            background: #4CAF50;
+            background: #41ba0d;
             color: white;
         }
 
         .btn-offer-accept:hover {
-            background: #66BB6A;
+            background: #5dcb2a;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.3);
         }
@@ -674,7 +674,7 @@ if ($is_seller) {
         .product-card-mini:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-            border-color: #4CAF50;
+            border-color: #41ba0d;
         }
 
         .product-card-mini img {
@@ -696,7 +696,7 @@ if ($is_seller) {
         }
 
         .product-card-mini .price {
-            color: #4CAF50;
+            color: #41ba0d;
             font-weight: 700;
             font-size: 1.1rem;
         }
@@ -736,7 +736,7 @@ if ($is_seller) {
         }
 
         .close-modal:hover {
-            color: #4CAF50;
+            color: #41ba0d;
         }
 
         /* RESPONSIVE */
@@ -911,7 +911,7 @@ if ($is_seller) {
       data-user-id="<?= $user_id ?>" 
       <?php endif; ?>>
       
-    <?php if (file_exists('header1.php')) include 'header1.php'; ?>
+    <?php include 'header2.php'; ?>
 
     <!-- BREADCRUMB -->
     <div class="breadcrumb">
@@ -1170,7 +1170,7 @@ if ($is_seller) {
                                         <?= htmlspecialchars($offer['buyer_name']) ?>
                                     </h4>
                                     <?php if ($offer['buyer_verified']): ?>
-                                    <i class="fas fa-check-circle" style="color: #4CAF50;" title="Verificado"></i>
+                                    <i class="fas fa-check-circle" style="color: #41ba0d;" title="Verificado"></i>
                                     <?php endif; ?>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 15px; color: #666; font-size: 0.9rem;">
@@ -1435,7 +1435,7 @@ if ($is_seller) {
                 Swal.fire({
                     icon: 'info',
                     title: 'No puedes comprar tu propio producto',
-                    confirmButtonColor: '#4CAF50'
+                    confirmButtonColor: '#41ba0d'
                 });
                 return;
             }
@@ -1470,7 +1470,7 @@ if ($is_seller) {
                 showConfirmButton: false,
                 toast: true,
                 position: 'top-end',
-                background: '#4CAF50',
+                background: '#41ba0d',
                 color: '#fff'
             });
         }
@@ -1480,7 +1480,7 @@ if ($is_seller) {
                 Swal.fire({
                     icon: 'info',
                     title: 'No puedes comprar tu propio producto',
-                    confirmButtonColor: '#4CAF50'
+                    confirmButtonColor: '#41ba0d'
                 });
                 return;
             }
@@ -1493,7 +1493,7 @@ if ($is_seller) {
                     showCancelButton: true,
                     confirmButtonText: 'Ir al login',
                     cancelButtonText: 'Cancelar',
-                    confirmButtonColor: '#4CAF50'
+                    confirmButtonColor: '#41ba0d'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         window.location.href = '../login.php?redirect=shop';
@@ -1666,7 +1666,7 @@ if ($is_seller) {
                 showCancelButton: true,
                 confirmButtonText: '<i class="fas fa-check"></i> Sí, aceptar',
                 cancelButtonText: '<i class="fas fa-times"></i> Cancelar',
-                confirmButtonColor: '#4CAF50',
+                confirmButtonColor: '#41ba0d',
                 cancelButtonColor: '#999',
                 reverseButtons: true
             }).then(async (result) => {
@@ -1685,7 +1685,7 @@ if ($is_seller) {
                                 icon: 'success',
                                 title: '¡Oferta aceptada!',
                                 text: 'Se ha notificado al comprador para que proceda con el pago.',
-                                confirmButtonColor: '#4CAF50'
+                                confirmButtonColor: '#41ba0d'
                             }).then(() => {
                                 location.reload();
                             });
@@ -1731,7 +1731,7 @@ if ($is_seller) {
                                 icon: 'success',
                                 title: 'Oferta rechazada',
                                 text: 'Se ha notificado al comprador.',
-                                confirmButtonColor: '#4CAF50'
+                                confirmButtonColor: '#41ba0d'
                             }).then(() => {
                                 location.reload();
                             });
@@ -1861,7 +1861,7 @@ if ($is_seller) {
                                 <div style="font-weight: 600; color: #333;">
                                     <i class="fas fa-user" style="color: ${iconColor};"></i>
                                     ${item.user_name} (${userType})
-                                    ${isInitial ? '<span style="background: #4CAF50; color: white; padding: 2px 8px; border-radius: 8px; font-size: 0.75rem; margin-left: 8px;">INICIAL</span>' : ''}
+                                    ${isInitial ? '<span style="background: #41ba0d; color: white; padding: 2px 8px; border-radius: 8px; font-size: 0.75rem; margin-left: 8px;">INICIAL</span>' : ''}
                                 </div>
                                 <div style="font-size: 0.85rem; color: #666;">
                                     ${new Date(item.created_at).toLocaleString('es-ES')}
